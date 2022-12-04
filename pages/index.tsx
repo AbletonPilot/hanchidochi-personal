@@ -5,6 +5,7 @@ import VideoModal from "../components/Modal/videoModal";
 import ModalPortal from "../components/ModalPortal";
 import { useWindowSize } from "usehooks-ts";
 import ReviewModal from "../components/Modal/reviewModal";
+import ReviewSearchModal from "../components/Modal/reviewSearchModal";
 
 const images = [
   { url: "/images/darkBackground01.png" },
@@ -30,6 +31,11 @@ export default function Home() {
     setModalState("review");
     document.body.style.overflow = "hidden";
   };
+  const openReviewSearchModal = () => {
+    setModalOpen(true);
+    setModalState("reviewSearch");
+    document.body.style.overflow = "hidden";
+  };
 
   const closeModal = () => {
     setModalOpen(false);
@@ -47,6 +53,10 @@ export default function Home() {
       <main
         className={`flex flex-col justify-start items-center z-10 relative w-full h-full `}
       >
+        <button
+          className="rounded-md w-2 h-2 transition-all z-20"
+          onClick={openReviewSearchModal}
+        ></button>
         <SimpleImageSlider
           width="100%"
           height="100%"
@@ -124,12 +134,14 @@ export default function Home() {
               alt="DownloadAPKButton"
             />
           </div>
-          <button
-            className="text-white mt-4 bg-{#00000046} border border-white rounded-md w-28 h-10 hover:bg-black transition-all"
-            onClick={openReviewModal}
-          >
-            평가하기
-          </button>
+          <div className="flex justify-center items-center">
+            <button
+              className="text-white mt-4 bg-{#00000046} border border-white rounded-md w-28 h-10 hover:bg-black transition-all mx-3"
+              onClick={openReviewModal}
+            >
+              평가하기
+            </button>
+          </div>
         </div>
       </main>
       <div className="flex justify-center items-center absolute bottom-0 mb-10 z-10 w-full ">
@@ -209,6 +221,8 @@ export default function Home() {
             <VideoModal onClose={closeModal} />
           ) : modalState === "review" ? (
             <ReviewModal onClose={closeModal} />
+          ) : modalState === "reviewSearch" ? (
+            <ReviewSearchModal onClose={closeModal} />
           ) : null}
         </ModalPortal>
       ) : null}
